@@ -129,6 +129,12 @@ model.config.num_beams=10
 gradient_checkpointing=True
 ```
 
+At this point, only three steps remain:
+
+1. Define your training hyperparameters in **Seq2SeqTrainingArguments**. The only required parameter is output_dir which specifies where to save your model. You’ll push this model to the Hub by setting push_to_hub=True (you need to be signed in to Hugging Face to upload your model). At the end of each epoch, the Trainer will evaluate the **ROUGE** metric and save the training checkpoint.
+2. Pass the training arguments to **Seq2SeqTrainer** along with the model, dataset, tokenizer, data collator, and compute_metrics function.
+3. Call **train()** to finetune your model.
+
 ```
 from transformers import  Seq2SeqTrainingArguments, Seq2SeqTrainer
 
